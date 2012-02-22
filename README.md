@@ -22,4 +22,13 @@ That is pretty much it for the setup. You can now generate and use server lists 
 Done.
 ```
 
+```
+# fab match:"^dev-" list
+[184.106.x.x] Executing task 'list'
+184.106.x.x  dev-web-01
+184.106.x.x	dev-web-02
+50.57.x.x dev-web-03
+50.57.x.x	dev-db-01
+```
+
 More to come.
