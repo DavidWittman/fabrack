@@ -1,5 +1,5 @@
 # Fabrack
-A Fabric task library for use with Rackspace Cloud Servers.
+A Fabric task library for use with Rackspace Cloud Servers. Inspired by Gareth Rushgrove's [cloth](https://github.com/garethr/cloth).
 
 ## Installation
 This package is meant to be installed using python-setuptools. You can clone this repository and run `python setup.py install`, or take the easy way out and use pip:
