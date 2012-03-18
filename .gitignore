@@ -1,0 +1,7 @@
+*.pyc
+servers.pkl
+fabfile.py
+build/
+dist/
+venv/
+*.egg-info/

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import functools
 import os
 import sys
 from collections import defaultdict
@@ -11,6 +12,9 @@ from fabrack.utils import servers, use, create_server_list
 env.list_file = 'servers.pkl'
 env.public_ip = True
 env.servers = []
+
+# Use functools.partial to automatically pass in server list pash
+servers = functools.partial(servers, path=env.list_file)
 
 @runs_once
 @task
@@ -51,7 +55,7 @@ def all():
 @task
 def match(name='.*'):
   """Regex match servers from list file"""
-  use(servers(name, env.list_file), env.public_ip)
+  use(servers(name), env.public_ip)
 
 @task
 def web():
