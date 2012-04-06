@@ -47,6 +47,7 @@ def private():
   """Use internal IP addressing"""
   env.public_ip = False
 
+@runs_once
 @task
 def all():
   """Use all nodes"""
