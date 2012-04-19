@@ -1,26 +1,37 @@
 #!/usr/bin/env/python
 
 import os
+import os.path
 import pickle
 import re
 import sys
 
-import cloudservers
+import novaclient
 from fabric.api import env
 
-def create_server_list(user, apikey, region, path):
-  """Creates a full list of Rackspace Cloud Servers"""
-  cs = cloudservers.CloudServers(user, apikey)
+us_authurl_v1_0 = "https://auth.api.rackspacecloud.com/v1.0"
+uk_authurl_v1_0 = "https://lon.auth.api.rackspacecloud.com/v1.0"
+
+us_authurl_v1_1 = "https://auth.api.rackspacecloud.com/v1.1"
+uk_authurl_v1_1 = "https://lon.auth.api.rackspacecloud.com/v1.1"
+
+us_authurl_v2_0 = "https://auth.api.rackspacecloud.com/v2.0/tokens"
+uk_authurl_v2_0 = "https://lon.auth.api.rackspacecloud.com/v2.0/tokens"
+
+def create_server_list(user, apikey, region=None, path=os.path.expanduser('~/.fabrackservers'):
+  """Creates a full list of Rackspace Cloud Servers
+  Region"""
+  if region == 'uk':
+    auth = uk_authurl_v1_0
+  else:
+    auth = us_authurl_v1_0
+  cs = novaclient.v1_0.client.Client(user, apikey, None, auth)
   servers = []
   for server in cs.servers.list():
     servers.append({ 'name': server.name, 'addresses': server.addresses })
-  try:
-    fh = open(path, 'w')
+  with fh = open(path, 'w')
     pickle.dump(servers, fh)
-    fh.close()
-  except IOError, e:
-    print "Error saving server list."
-    sys.exit(1)
+  return servers
 
 def get_server_list(path):
   try:
