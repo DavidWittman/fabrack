@@ -34,12 +34,10 @@ def generate(user='', apikey='', region="US"):
 @task
 def list():
   """List Cloud Server name and IP address"""
-  if env.servers:
-    for info in env.servers:
-      print "%s\t%s" % info
-  else:
-    for host in env.hosts:
-      print host
+  servers = get_server_list()
+  for server in servers:
+      print "%30s\t%16s\t%s" % (server['name'], 
+         server['addresses']['public'][0], server['addresses']['private'][0])
 
 @runs_once
 @task
@@ -47,28 +45,8 @@ def private():
   """Use internal IP addressing"""
   env.public_ip = False
 
-@runs_once
 @task
-def all():
-  """Use all nodes"""
-  match()
-
-@task
-def match(name='.*'):
-  """Regex match servers from list file"""
-  use(servers(name), env.public_ip)
-
-@task
-def web():
-  """Use all webservers"""
-  match('^web')
-
-@task
-def db():
-  """Use all databases"""
-  match('^db')
-
-@task
-def uptime():
+def uptime(role):
   """Show uptime and load"""
-  run('uptime')
+  with settings(roles=role):
+    run('uptime')
