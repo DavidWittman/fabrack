@@ -52,4 +52,4 @@ def make_roles(rdict, path=None):
     for (key, value) in rdict.iteritems():
       if value in server['name']:
         env.roledefs[key].append(server['addresses'][ip_type][0])
-        env.roledefs['all'].append(servers['addresses'][ip_type][0])
+        env.roledefs['all'].append(server['addresses'][ip_type][0])
