@@ -21,6 +21,6 @@ if not os.path.exists(env.servers_path):
     servers.generate()
 make_roles(env.rdict)
 
-pprint(env.roledefs)
+pprint.pprint(env.roledefs)
 
 
