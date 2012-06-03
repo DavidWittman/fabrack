@@ -6,7 +6,7 @@ import pickle
 import re
 import sys
 
-import novaclient
+import novaclient.v1_0.client
 from fabric.api import env
 
 us_authurl_v1_0 = "https://auth.api.rackspacecloud.com/v1.0"
